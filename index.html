@@ -102,40 +102,44 @@
             <div class="container mx-auto px-6 max-w-5xl">
                 <h2 class="text-3xl font-bold text-center text-gray-800">Linha do Tempo Profissional</h2>
                 <p class="mt-4 text-center text-gray-600 mb-12">Uma visão cronológica da minha jornada acadêmica e profissional.</p>
-                <div class="relative wrap overflow-hidden p-10 h-full">
-                    <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
-                    
-                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                        <div class="order-1 w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+                <div class="relative wrap overflow-hidden p-4 md:p-10 h-full">
+                    <!-- Central vertical line: hidden on mobile, visible on md+ -->
+                    <div class="hidden md:block border-2-2 absolute border-opacity-20 border-gray-700 h-full border left-1/2 transform -translate-x-1/2"></div>
+
+                    <!-- Timeline Item 1 -->
+                    <div class="mb-8 flex flex-col md:flex-row justify-between items-center w-full md:right-timeline">
+                        <div class="order-1 w-full md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full mx-auto md:mx-0">
                             <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
                         </div>
-                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 mt-4 md:mt-0">
                             <h3 class="font-bold text-gray-800 text-xl">Análise e Desenvolvimento de Sistemas</h3>
                             <p class="text-sm leading-snug tracking-wide text-gray-600">Faculdade Municipal de Palhoça</p>
                             <p class="text-sm font-semibold text-teal-600">Fev 2023 - Jul 2025 (Formando)</p>
                         </div>
                     </div>
 
-                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
-                        <div class="order-1 w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+                    <!-- Timeline Item 2 -->
+                    <div class="mb-8 flex flex-col md:flex-row-reverse justify-between items-center w-full md:left-timeline">
+                        <div class="order-1 w-full md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full mx-auto md:mx-0">
                             <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
                         </div>
-                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 mt-4 md:mt-0">
                             <h3 class="font-bold text-gray-800 text-xl">Participação - Startup Garage</h3>
                             <p class="text-sm leading-snug tracking-wide text-gray-600">SEBRAE/SC</p>
                             <p class="text-sm font-semibold text-teal-600">Ago 2024</p>
                             <p class="text-xs mt-2 text-gray-500">Workshop e mentoria para estruturação de ideias de negócio, prototipação e validação.</p>
                         </div>
                     </div>
-                    
-                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
-                        <div class="order-1 w-5/12"></div>
-                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+
+                    <!-- Timeline Item 3 -->
+                    <div class="mb-8 flex flex-col md:flex-row justify-between items-center w-full md:right-timeline">
+                        <div class="order-1 w-full md:w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full mx-auto md:mx-0">
                             <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
                         </div>
-                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-full md:w-5/12 px-6 py-4 mt-4 md:mt-0">
                             <h3 class="font-bold text-gray-800 text-xl">Estagiário de Operações e Suporte</h3>
                             <p class="text-sm leading-snug tracking-wide text-gray-600">Zedia (Hubbe Tecnologia)</p>
                             <p class="text-sm font-semibold text-teal-600">Jun 2025 - Presente</p>
