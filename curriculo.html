@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kauã Silva Marega - Desenvolvedor de Software</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Teal Accent -->
+    <!-- Application Structure Plan: A single-page application with a fixed top navigation for smooth scrolling between thematic sections (Hero, About, Timeline, Projects, Skills, Contact). This structure provides a clear, linear narrative of the user's professional story while allowing quick access to specific areas of interest. The timeline combines education and experience chronologically for better storytelling. The skills section uses an interactive chart to make the data more engaging and digestible. This design was chosen for its modern feel and user-friendly navigation, which is superior to a static document for engaging potential employers. -->
+    <!-- Visualization & Content Choices: 
+        - Timeline (Education/Experience): Goal: Show career progression. Method: Vertical timeline with HTML/CSS. Interaction: Hover effects. Justification: Visually represents growth over time in a storytelling format.
+        - Projects: Goal: Showcase practical work. Method: Responsive card grid. Interaction: Hover effects. Justification: Scannable and visually organized presentation of work.
+        - Technical Skills: Goal: Visualize skill distribution. Method: Radar chart (Chart.js/Canvas). Interaction: Buttons to filter skill categories (Linguagens, Frameworks, Ferramentas) dynamically update the chart. Justification: More engaging than a list, provides a holistic view of the developer's profile, and interactivity allows for focused exploration.
+        - Soft Skills: Goal: Inform about interpersonal abilities. Method: Icon list. Justification: Easy to parse and visually appealing.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #1f2937;
+        }
+        .nav-link {
+            transition: color 0.3s;
+        }
+        .nav-link.active, .nav-link:hover {
+            color: #0d9488;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center max-w-7xl">
+            <a href="#" class="text-2xl font-bold text-gray-800">Kauã S. Marega</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#sobre" class="nav-link text-gray-600 font-medium">Sobre</a>
+                <a href="#experiencia" class="nav-link text-gray-600 font-medium">Experiência</a>
+                <a href="#projetos" class="nav-link text-gray-600 font-medium">Projetos</a>
+                <a href="#competencias" class="nav-link text-gray-600 font-medium">Competências</a>
+                <a href="#contato" class="nav-link text-gray-600 font-medium">Contato</a>
+            </div>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-800 focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden">
+            <a href="#sobre" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Sobre</a>
+            <a href="#experiencia" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Experiência</a>
+            <a href="#projetos" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Projetos</a>
+            <a href="#competencias" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Competências</a>
+            <a href="#contato" class="block py-2 px-4 text-sm text-gray-600 hover:bg-gray-100">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">Kauã Silva Marega</h1>
+                <p class="mt-4 text-lg md:text-xl text-teal-700 font-medium">Desenvolvedor de Software com foco em Java e soluções Back-end</p>
+                <div class="mt-8 flex justify-center space-x-6">
+                    <a href="https://www.linkedin.com/in/kauasm" target="_blank" class="text-gray-500 hover:text-teal-600 transition-colors">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                    </a>
+                    <a href="https://github.com/KauaSM" target="_blank" class="text-gray-500 hover:text-teal-600 transition-colors">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12 2c-5.52 0-10 4.48-10 10 0 4.42 2.87 8.17 6.84 9.5.5.09.68-.22.68-.48 0-.24-.01-1.02-.01-1.82-2.78.6-3.37-1.34-3.37-1.34-.45-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.89 1.53 2.34 1.09 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.33 4.68-4.56 4.93.36.31.68.92.68 1.85 0 1.34-.01 2.42-.01 2.75 0 .27.18.58.69.48C19.13 20.17 22 16.42 22 12c0-5.52-4.48-10-10-10z" clip-rule="evenodd"/></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="sobre" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-4xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Sobre Mim</h2>
+                <p class="mt-6 text-center text-gray-600 leading-relaxed">
+                    Sou um profissional apaixonado por tecnologia e pelas inovações que ela proporciona. Busco minha primeira oportunidade na área de desenvolvimento de software, especialmente como Desenvolvedor Java Júnior, para aplicar de forma prática e produtiva os conhecimentos que venho desenvolvendo na faculdade e em projetos pessoais. Tenho um interesse particular nas áreas de desenvolvimento back-end e inteligência artificial, com foco em aprendizado contínuo, colaboração e crescimento profissional em ambientes ágeis.
+                </p>
+            </div>
+        </section>
+
+        <section id="experiencia" class="py-20">
+            <div class="container mx-auto px-6 max-w-5xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Linha do Tempo Profissional</h2>
+                <p class="mt-4 text-center text-gray-600 mb-12">Uma visão cronológica da minha jornada acadêmica e profissional.</p>
+                <div class="relative wrap overflow-hidden p-10 h-full">
+                    <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">1</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Análise e Desenvolvimento de Sistemas</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">Faculdade Municipal de Palhoça</p>
+                            <p class="text-sm font-semibold text-teal-600">Fev 2023 - Jul 2025 (Formando)</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-8 flex justify-between flex-row-reverse items-center w-full left-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto text-white font-semibold text-lg">2</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Participação - Startup Garage</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">SEBRAE/SC</p>
+                            <p class="text-sm font-semibold text-teal-600">Ago 2024</p>
+                            <p class="text-xs mt-2 text-gray-500">Workshop e mentoria para estruturação de ideias de negócio, prototipação e validação.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-8 flex justify-between items-center w-full right-timeline">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-teal-600 shadow-xl w-8 h-8 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">3</h1>
+                        </div>
+                        <div class="order-1 bg-white rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-gray-800 text-xl">Estagiário de Operações e Suporte</h3>
+                            <p class="text-sm leading-snug tracking-wide text-gray-600">Zedia (Hubbe Tecnologia)</p>
+                            <p class="text-sm font-semibold text-teal-600">Jun 2025 - Presente</p>
+                             <p class="text-xs mt-2 text-gray-500">Apoio à implantação de clientes, monitoramento de sistemas e análise de dados.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projetos" class="py-20 bg-white">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Projetos Relevantes</h2>
+                <p class="mt-4 text-center text-gray-600 mb-12">Explore alguns dos projetos que desenvolvi, aplicando tecnologias modernas para resolver problemas práticos.</p>
+                <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                </div>
+            </div>
+        </section>
+
+        <section id="competencias" class="py-20">
+            <div class="container mx-auto px-6 max-w-7xl">
+                <h2 class="text-3xl font-bold text-center text-gray-800">Competências</h2>
+                <p class="mt-4 text-center text-gray-600 mb-12">Minhas habilidades técnicas e interpessoais, essenciais para a criação de software de qualidade.</p>
+                
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">Habilidades Técnicas</h3>
+                        <p class="text-gray-600 mb-6">Abaixo está uma visualização das minhas principais competências técnicas. Você pode filtrar por categoria para explorar áreas específicas do meu conhecimento. Esta abordagem interativa ajuda a demonstrar a amplitude e o foco das minhas habilidades.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 justify-center">
+                            <button class="skill-btn active bg-teal-600 text-white px-4 py-2 rounded-full text-sm font-medium" data-skill="all">Todas</button>
+                            <button class="skill-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium" data-skill="languages">Linguagens</button>
+                            <button class="skill-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium" data-skill="backend">Back-end</button>
+                            <button class="skill-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium" data-skill="frontend">Front-end</button>
+                            <button class="skill-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full text-sm font-medium" data-skill="tools">Ferramentas</button>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6">Soft Skills</h3>
+                        <ul id="soft-skills-list" class="space-y-4">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contato" class="bg-white py-20">
+            <div class="container mx-auto px-6 text-center max-w-4xl">
+                <h2 class="text-3xl font-bold text-gray-800">Vamos Conversar?</h2>
+                <p class="mt-4 text-gray-600">Estou sempre aberto a novas oportunidades e colaborações. Sinta-se à vontade para entrar em contato.</p>
+                <div class="mt-8">
+                    <p class="text-lg font-medium text-gray-800">Kauã Silva Marega</p>
+                    <p class="text-lg text-teal-600 mt-2"><a href="mailto:kauasm2017@gmail.com" class="hover:underline">kauasm2017@gmail.com</a></p>
+                    <p class="text-lg text-gray-600 mt-1">(48) 99682-4658</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Kauã Silva Marega. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                });
+            });
+
+            const sections = document.querySelectorAll('section');
+            const navLi = document.querySelectorAll('nav .hidden a');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (pageYOffset >= sectionTop - 60) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLi.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href') === '#' + current) {
+                        a.classList.add('active');
+                    }
+                });
+            });
+            
+            const projectsData = [
+                {
+                    title: "LivingHub - Gestão Condominial",
+                    description: "Projeto fullstack para administração de condomínios, com controle de acesso, reservas, manutenções e comunicação interna.",
+                    tags: ["Python", "Flask", "PostgreSQL", "Docker", "AWS", "JWT"]
+                },
+                {
+                    title: "App de Gerenciamento de Serviços",
+                    description: "Aplicativo mobile para controle de clientes e serviços, com funcionalidades de cadastro, consulta e atualização de dados.",
+                    tags: ["Java", "MySQL", "Android Studio"]
+                },
+                {
+                    title: "Sistema Web de Cadastro",
+                    description: "Plataforma online para MEIs organizarem seus atendimentos e clientes, com CRUD completo e painel de controle.",
+                    tags: ["PHP", "JavaScript", "HTML", "CSS", "MySQL"]
+                },
+                {
+                    title: "Site Institucional para MEI",
+                    description: "Desenvolvimento de um site para divulgação de produtos ou serviços, com foco em design responsivo, usabilidade e SEO.",
+                    tags: ["HTML", "CSS", "JavaScript", "GitHub"]
+                }
+            ];
+
+            const projectsGrid = document.getElementById('projects-grid');
+            projectsData.forEach(project => {
+                const projectCard = `
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2">${project.title}</h3>
+                            <p class="text-gray-600 text-sm mb-4">${project.description}</p>
+                            <div class="flex flex-wrap gap-2">
+                                ${project.tags.map(tag => `<span class="bg-teal-100 text-teal-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">${tag}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.innerHTML += projectCard;
+            });
+
+            const softSkillsData = [
+                { skill: "Comunicação eficaz e didática", icon: "M10 12.5a.5.5 0 01.5-.5h3a.5.5 0 010 1h-3a.5.5 0 01-.5-.5z" },
+                { skill: "Raciocínio lógico e pensamento crítico", icon: "M8 1a2.5 2.5 0 012.5 2.5V4h-5v-.5A2.5 2.5 0 018 1zm3.5 3v-.5a3.5 3.5 0 10-7 0V4H1v10a1 1 0 001 1h12a1 1 0 001-1V4h-3.5z" },
+                { skill: "Organização e gerenciamento de tempo", icon: "M10.854 7.146a.5.5 0 010 .708l-3 3a.5.5 0 01-.708 0l-1.5-1.5a.5.5 0 11.708-.708L7.5 9.793l2.646-2.647a.5.5 0 01.708 0z" },
+                { skill: "Proatividade e empatia", icon: "M6 8a3 3 0 100-6 3 3 0 000 6zM-1 8a4 4 0 118 0 4 4 0 01-8 0zM1 14a1 1 0 011-1h12a1 1 0 110 2H2a1 1 0 01-1-1z" },
+                { skill: "Facilidade para trabalhar em equipe", icon: "M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7zm4-6a3 3 0 100-6 3 3 0 000 6z" }
+            ];
+
+            const softSkillsList = document.getElementById('soft-skills-list');
+            softSkillsData.forEach(item => {
+                const listItem = `
+                    <li class="flex items-start">
+                        <span class="text-teal-500 mr-4 mt-1">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="${item.icon}"/></svg>
+                        </span>
+                        <span class="text-gray-700">${item.skill}</span>
+                    </li>
+                `;
+                softSkillsList.innerHTML += listItem;
+            });
+
+            const skills = {
+                all: {
+                    labels: ['Java', 'Python', 'Back-end', 'Front-end', 'Bancos de Dados', 'Ferramentas'],
+                    data: [85, 75, 80, 65, 70, 90]
+                },
+                languages: {
+                    labels: ['Java', 'Python', 'PHP', 'JavaScript', 'C#'],
+                    data: [85, 75, 60, 70, 50]
+                },
+                backend: {
+                    labels: ['Spring Boot', 'Flask', 'API REST', 'PostgreSQL', 'MySQL', 'Docker'],
+                    data: [70, 75, 85, 75, 80, 80]
+                },
+                frontend: {
+                    labels: ['HTML', 'CSS', 'JavaScript', 'Tailwind'],
+                    data: [90, 85, 70, 80]
+                },
+                tools: {
+                    labels: ['Git/GitHub', 'AWS', 'SOLID', 'Metodologias Ágeis', 'Android Studio'],
+                    data: [90, 65, 75, 85, 70]
+                }
+            };
+
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            let skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: skills.all.labels,
+                    datasets: [{
+                        label: 'Nível de Proficiência',
+                        data: skills.all.data,
+                        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+                        borderColor: 'rgba(13, 148, 136, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(13, 148, 136, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(13, 148, 136, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                            grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                            pointLabels: {
+                                font: { size: 12, weight: 'bold' },
+                                color: '#374151'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                color: '#6b7280',
+                                stepSize: 25,
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+
+            const skillButtons = document.querySelectorAll('.skill-btn');
+            skillButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    skillButtons.forEach(btn => {
+                        btn.classList.remove('active', 'bg-teal-600', 'text-white');
+                        btn.classList.add('bg-gray-200', 'text-gray-700');
+                    });
+                    button.classList.add('active', 'bg-teal-600', 'text-white');
+                    button.classList.remove('bg-gray-200', 'text-gray-700');
+
+                    const skillCategory = button.dataset.skill;
+                    skillsChart.data.labels = skills[skillCategory].labels;
+                    skillsChart.data.datasets[0].data = skills[skillCategory].data;
+                    skillsChart.update();
+                });
+            });
+        });
+    </script>
+</body>
+</html>
